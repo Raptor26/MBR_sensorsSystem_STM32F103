@@ -25,6 +25,8 @@
 #include "rcc.h"
 #include "BLEDS_board_leds.h"
 #include "UFD_uart_for_debug.h"
+#include "HPT_hard_prog_tact.h"
+#include "stm32f1xx_ll_usart.h"
 /*==== |End  | <-- Секция - "Extern libraries" ===============================*/
 /*#### |End  | <-- Секция - "Include" ########################################*/
 

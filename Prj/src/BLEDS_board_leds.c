@@ -68,7 +68,10 @@ void
 BLEDS_Green_ON(
 	void)
 {
-	/* TODO - Включение светодиода */
+	LL_GPIO_SetOutputPin(
+		GPIOC,
+		LL_GPIO_PIN_13);
+
 }
 
 void
@@ -76,6 +79,10 @@ BLEDS_Green_OFF(
 	void)
 {
 	/* TODO - Выключение светодиода */
+	LL_GPIO_ResetOutputPin(
+		GPIOC,
+		LL_GPIO_PIN_13);
+
 }
 /*#### |End  | <-- Секция - "Описание глобальных функций" ####################*/
 
