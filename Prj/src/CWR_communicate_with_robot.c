@@ -94,6 +94,19 @@ CWR_StartForceDMATransmit(
 }
 
 void
+CWR_StartDMATransmit(
+	uint32_t *pMemSource,
+	uint16_t cnt)
+{
+	if (LL_DMA_IsEnabledChannel(DMA1, LL_DMA_CHANNEL_4) != 1)
+	{
+		CWR_StartForceDMATransmit(
+			pMemSource,
+			cnt);
+	}
+}
+
+void
 CWR_StartForceDMAReceive(
 	uint32_t *pMemSource,
 	uint16_t cnt)
@@ -126,6 +139,19 @@ CWR_StartForceDMAReceive(
 
 	/* Включить UART */
 	LL_USART_Enable(USART1);
+}
+
+void
+CWR_StartDMAReceive(
+	uint32_t *pMemSource,
+	uint16_t cnt)
+{
+	if (LL_DMA_IsEnabledChannel(DMA1, LL_DMA_CHANNEL_5) != 1)
+	{
+		CWR_StartForceDMAReceive(
+			pMemSource,
+			cnt);
+	}
 }
 
 void USART1_IRQHandler(
