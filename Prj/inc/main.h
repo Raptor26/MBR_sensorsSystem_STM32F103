@@ -28,6 +28,7 @@
 #include "UFD_uart_for_debug.h"
 #include "HPT_hard_prog_tact.h"
 #include "VT_virt_tmrs.h"
+#include "CWR_communicate_with_robot.h"
 /*==== |End  | <-- Секция - "Extern libraries" ===============================*/
 /*#### |End  | <-- Секция - "Include" ########################################*/
 

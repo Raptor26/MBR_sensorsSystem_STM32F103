@@ -57,6 +57,161 @@ CWR_Init_USART1_TxWithDMA_RxWithDMA(
 	/* Инициализация канала DMA на прием данных */
 	CWR_Init_DMA1_Channel5_For_USART1_Rx();
 }
+
+void
+CWR_StartForceDMATransmit(
+	uint32_t *pMemSource,
+	uint16_t cnt)
+{
+	/* Отключение модуля UART1 */
+	LL_USART_Disable(USART1);
+
+	/* Отключение канала DMA */
+	LL_DMA_DisableChannel(
+		DMA1,
+		LL_DMA_CHANNEL_4);
+
+	/* Установить адрес, откуда начнется передача */
+	LL_DMA_SetMemoryAddress(
+		DMA1,
+		LL_DMA_CHANNEL_4,
+		(uint32_t) pMemSource);
+
+	/* Восстановить кол-во байт, которое необходимо передать по каналу DMA */
+	LL_DMA_SetDataLength(
+		DMA1,
+		LL_DMA_CHANNEL_4,
+		cnt);
+
+	/* Включить в UART запрос на передачу DMA */
+	LL_USART_EnableDMAReq_TX(USART1);
+
+	/* Включить канал DMA */
+	LL_DMA_EnableChannel(DMA1, LL_DMA_CHANNEL_4);
+
+	/* Включить UART */
+	LL_USART_Enable(USART1);
+}
+
+void
+CWR_StartForceDMAReceive(
+	uint32_t *pMemSource,
+	uint16_t cnt)
+{
+	/* Отключение модуля UART1 */
+	LL_USART_Disable(USART1);
+
+	/* Отключение канала DMA */
+	LL_DMA_DisableChannel(
+		DMA1,
+		LL_DMA_CHANNEL_5);
+
+	/* Установить адрес, откуда начнется передача */
+	LL_DMA_SetMemoryAddress(
+		DMA1,
+		LL_DMA_CHANNEL_5,
+		(uint32_t) pMemSource);
+
+	/* Восстановить кол-во байт, которое необходимо передать по каналу DMA */
+	LL_DMA_SetDataLength(
+		DMA1,
+		LL_DMA_CHANNEL_5,
+		cnt);
+
+	/* Включить в UART запрос на передачу DMA */
+	LL_USART_EnableDMAReq_RX(USART1);
+
+	/* Включить канал DMA */
+	LL_DMA_EnableChannel(DMA1, LL_DMA_CHANNEL_5);
+
+	/* Включить UART */
+	LL_USART_Enable(USART1);
+}
+
+void USART1_IRQHandler(
+	void)
+{
+	/* Если пришел байт данных */
+	if (LL_USART_IsActiveFlag_RXNE(USART1) == 1)
+	{
+		uint8_t trash =
+			LL_USART_ReceiveData8(
+					USART1);
+		(void) trash;
+	}
+
+	/* Иначе */
+	else
+	{
+		/* Сброс всех флагов */
+		LL_USART_ClearFlag_PE	(USART1);
+		LL_USART_ClearFlag_FE	(USART1);
+		LL_USART_ClearFlag_NE	(USART1);
+		LL_USART_ClearFlag_ORE	(USART1);
+		LL_USART_ClearFlag_IDLE	(USART1);
+		LL_USART_ClearFlag_TC	(USART1);
+		LL_USART_ClearFlag_LBD	(USART1);
+		LL_USART_ClearFlag_nCTS	(USART1);
+	}
+}
+
+void DMA1_Channel4_IRQHandler(
+	void)
+{
+	if (LL_DMA_IsActiveFlag_TC4(DMA1) == 1)
+	{
+		/* Очистка флагов */
+		LL_DMA_ClearFlag_TC4(DMA1);
+		LL_DMA_ClearFlag_GI4(DMA1);
+
+		/* Отключение канала DMA */
+		LL_DMA_DisableChannel(
+			DMA1,
+			LL_DMA_CHANNEL_4);
+	}
+	else
+	{
+		/* Очистка флагов */
+		LL_DMA_ClearFlag_HT4	(DMA1);
+		LL_DMA_ClearFlag_TE4	(DMA1);
+		LL_DMA_ClearFlag_TC4	(DMA1);
+		LL_DMA_ClearFlag_GI4	(DMA1);
+
+		/* Отключение канала DMA */
+		LL_DMA_DisableChannel(
+			DMA1,
+			LL_DMA_CHANNEL_4);
+	}
+}
+
+void DMA1_Channel5_IRQHandler(
+	void)
+{
+	if (LL_DMA_IsActiveFlag_TC5(DMA1) == 1)
+	{
+		/* Очистка флагов */
+		LL_DMA_ClearFlag_TC5(DMA1);
+		LL_DMA_ClearFlag_GI5(DMA1);
+
+		/* Отключение канала DMA */
+		LL_DMA_DisableChannel(
+			DMA1,
+			LL_DMA_CHANNEL_5);
+	}
+	else
+	{
+		/* Очистка флагов */
+		LL_DMA_ClearFlag_HT5	(DMA1);
+		LL_DMA_ClearFlag_TE5	(DMA1);
+		LL_DMA_ClearFlag_TC5	(DMA1);
+		LL_DMA_ClearFlag_GI5	(DMA1);
+
+		/* Отключение канала DMA */
+		LL_DMA_DisableChannel(
+			DMA1,
+			LL_DMA_CHANNEL_5);
+	}
+}
 /*#### |End  | <-- Секция - "Описание глобальных функций" ####################*/
 
 
