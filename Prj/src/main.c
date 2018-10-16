@@ -44,6 +44,9 @@ int main(
 		9600u);
 
 
+	CWR_Init_USART1_TxWithDMA_RxWithDMA(9600UL);
+
+
 	HPT_InitTIMForProgTact(
 		progTactLength);
 

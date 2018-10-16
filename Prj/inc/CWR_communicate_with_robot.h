@@ -1,7 +1,7 @@
-/** 
+/**
  * @file   	CWR_communicate_with_robot.h
- * @author 	
- * @version	
+ * @author
+ * @version
  * @date 	16 окт. 2018 г.
  * @brief
  */
@@ -13,9 +13,16 @@
 
 /*#### |Begin| --> Секция - "Include" ########################################*/
 /*==== |Begin| --> Секция - "C libraries" ====================================*/
+#include "stdio.h"
+#include "stdint.h"
 /*==== |End  | <-- Секция - "C libraries" ====================================*/
 
 /*==== |Begin| --> Секция - "MK peripheral libraries" ========================*/
+#include "stm32f1xx.h"
+#include "stm32f1xx_hal.h"
+#include "stm32f1xx_ll_usart.h"
+#include "stm32f1xx_ll_dma.h"
+#include "stm32f1xx_ll_gpio.h"
 /*==== |End  | <-- Секция - "MK peripheral libraries" ========================*/
 
 /*==== |Begin| --> Секция - "Extern libraries" ===============================*/
@@ -36,6 +43,9 @@
 
 
 /*#### |Begin| --> Секция - "Прототипы глобальных функций" ###################*/
+extern void
+CWR_Init_USART1_TxWithDMA_RxWithDMA(
+	uint32_t baudrate);
 /*#### |End  | <-- Секция - "Прототипы глобальных функций" ###################*/
 
 
