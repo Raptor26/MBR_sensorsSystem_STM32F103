@@ -327,7 +327,7 @@ CWR_Init_DMA1_Channel5_For_USART1_Rx(
 	__HAL_RCC_DMA1_CLK_ENABLE();
 
 	LL_DMA_InitTypeDef DMA_init_s;
-	DMA_init_s.Direction 				= LL_DMA_DIRECTION_MEMORY_TO_PERIPH;
+	DMA_init_s.Direction 				= LL_DMA_DIRECTION_PERIPH_TO_MEMORY;
 	DMA_init_s.MemoryOrM2MDstAddress 	= 0u;
 	DMA_init_s.MemoryOrM2MDstDataSize 	= LL_DMA_MDATAALIGN_BYTE;
 	DMA_init_s.MemoryOrM2MDstIncMode 	= LL_DMA_MEMORY_INCREMENT;
