@@ -58,15 +58,15 @@ CWR_Init_USART1_TxWithDMA_RxWithDMA(
 	CWR_Init_USART1_TxRx(
 		baudrate);
 
-	/* Инициализация канала DMA на передачу */
+	/* Инициализация канала DMA для USART1_Tx */
 	CWR_Init_DMA1_Channel4_For_USART1_Tx();
 
-	/* Инициализация канала DMA на прием данных */
+	/* Инициализация канала DMA для USART1_Rx */
 	CWR_Init_DMA1_Channel5_For_USART1_Rx();
 }
 
 /**
- * @brief	Функция передает данные по модулю USART1 с помощью канала DMA
+ * @brief	Функция передает данные по модулю USART1 с помощью канала DMA Cnannel4
  * @param[in]	*pMemSource:	Адрес, откуда начнется передача
  * @param[in]	cnt: 	Количество байт, которые необходимо передать
  * @return	None
@@ -107,7 +107,7 @@ CWR_StartForceDMATransmit(
 }
 
 /**
- * @brief	Функция принудительно передает данные по модулю USART1 с помощью канала DMA,
+ * @brief	Функция принудительно передает данные по модулю USART1 с помощью канала DMA Cnannel4,
  * 			если канал DMA неактивен
  * @param[in]	*pMemSource: Адрес, откуда начнется передача
  * @param[in]	cnt:	Количество байт, которые необходимо передать
@@ -127,7 +127,7 @@ CWR_StartDMATransmit(
 }
 
 /**
- * @brief	Функция получает данные по модулю USART1 с помощью канала DMA
+ * @brief	Функция получает данные по модулю USART1 с помощью канала DMA Cnannel5
  * @param[in]	*pMemSource:	Адрес, откуда начнется передача
  * @param[in]	cnt: 	Количество байт, которые необходимо передать
  * @return	None
@@ -168,7 +168,7 @@ CWR_StartForceDMAReceive(
 }
 
 /**
- * @brief	Функция принудительно получает данные по модулю USART1 с помощью канала DMA,
+ * @brief	Функция принудительно получает данные по модулю USART1 с помощью канала DMA Cnannel5,
  * 			если канал DMA неактивен
  * @param[in]	*pMemSource: Адрес, откуда начнется передача
  * @param[in]	cnt:	Количество байт, которые необходимо передать
@@ -220,7 +220,7 @@ void USART1_IRQHandler(
 }
 
 /**
- * @brief	Функция обработки прерывания канала Channel4 DMA на передачу данных
+ * @brief	Функция обработки прерывания канала Channel4 DMA для USART1_Tx
  * @param	None
  * @return	None
  */
@@ -254,7 +254,7 @@ void DMA1_Channel4_IRQHandler(
 }
 
 /**
- * @brief	Функция обработки прерывания канала Channel5 DMA на прием данных
+ * @brief	Функция обработки прерывания канала Channel5 DMA для USART1_Rx
  * @param	None
  * @return	None
  */
