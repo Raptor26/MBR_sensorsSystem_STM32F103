@@ -44,6 +44,10 @@ int main(
 		9600u);
 
 
+	CWR_Init_USART1_TxWithDMA_RxWithDMA(9600UL);
+
+
+
 	HPT_InitTIMForProgTact(
 		progTactLength);
 
@@ -66,7 +70,7 @@ int main(
 					strlen(testMessage_a));
 
 //			LL_USART_TransmitData8(USART2, 'H');
-
+			LL_USART_TransmitData8(USART1, 'Y');
 
 			HPT_status_s.restProgTactCnt = progTactLength - TIM4->CNT;
 			HPT_status_s.minRestTactCnt = HPT_Min(HPT_status_s.restProgTactCnt, TIM4->CNT);

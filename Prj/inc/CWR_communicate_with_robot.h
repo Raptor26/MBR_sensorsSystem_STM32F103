@@ -1,34 +1,31 @@
 /**
- * @file   	main.h
+ * @file   	CWR_communicate_with_robot.h
  * @author
  * @version
- * @date 	24 сент. 2018 г.
+ * @date 	16 окт. 2018 г.
  * @brief
  */
 
 
-#ifndef MAIN_H_
-#define MAIN_H_
+#ifndef CWR_COMMUNICATE_WITH_ROBOT_H_
+#define CWR_COMMUNICATE_WITH_ROBOT_H_
 
 
 /*#### |Begin| --> Секция - "Include" ########################################*/
 /*==== |Begin| --> Секция - "C libraries" ====================================*/
 #include "stdio.h"
 #include "stdint.h"
-#include "string.h"
 /*==== |End  | <-- Секция - "C libraries" ====================================*/
 
 /*==== |Begin| --> Секция - "MK peripheral libraries" ========================*/
 #include "stm32f1xx.h"
+#include "stm32f1xx_hal.h"
+#include "stm32f1xx_ll_usart.h"
+#include "stm32f1xx_ll_dma.h"
+#include "stm32f1xx_ll_gpio.h"
 /*==== |End  | <-- Секция - "MK peripheral libraries" ========================*/
 
 /*==== |Begin| --> Секция - "Extern libraries" ===============================*/
-#include "rcc.h"
-#include "BLEDS_board_leds.h"
-#include "UFD_uart_for_debug.h"
-#include "HPT_hard_prog_tact.h"
-#include "VT_virt_tmrs.h"
-#include "CWR_communicate_with_robot.h"
 /*==== |End  | <-- Секция - "Extern libraries" ===============================*/
 /*#### |End  | <-- Секция - "Include" ########################################*/
 
@@ -46,13 +43,16 @@
 
 
 /*#### |Begin| --> Секция - "Прототипы глобальных функций" ###################*/
+extern void
+CWR_Init_USART1_TxWithDMA_RxWithDMA(
+	uint32_t baudrate);
 /*#### |End  | <-- Секция - "Прототипы глобальных функций" ###################*/
 
 
 /*#### |Begin| --> Секция - "Определение макросов" ###########################*/
 /*#### |End  | <-- Секция - "Определение макросов" ###########################*/
 
-#endif	/* MAIN_H_ */
+#endif	/* CWR_COMMUNICATE_WITH_ROBOT_H_ */
 
 /*############################################################################*/
 /*################################ END OF FILE ###############################*/
