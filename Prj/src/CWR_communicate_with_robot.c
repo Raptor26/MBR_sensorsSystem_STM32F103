@@ -40,6 +40,13 @@ CWR_Init_DMA1_Channel5_For_USART1_Rx(
 
 
 /*#### |Begin| --> Секция - "Описание глобальных функций" ####################*/
+
+/**
+ * @brief	Функция выполняет инициализацию аппаратных модулей для передачи и
+ * 			приема данных по USART1 с помощью DMA
+ * @param[in]	baudrate:	Скорость передачи данных
+ * @return	None
+ */
 void
 CWR_Init_USART1_TxWithDMA_RxWithDMA(
 	uint32_t baudrate)
@@ -58,6 +65,12 @@ CWR_Init_USART1_TxWithDMA_RxWithDMA(
 	CWR_Init_DMA1_Channel5_For_USART1_Rx();
 }
 
+/**
+ * @brief	Функция передает данные по модулю USART1 с помощью канала DMA
+ * @param[in]	*pMemSource:	Адрес, откуда начнется передача
+ * @param[in]	cnt: 	Количество байт, которые необходимо передать
+ * @return	None
+ */
 void
 CWR_StartForceDMATransmit(
 	uint32_t *pMemSource,
@@ -93,6 +106,13 @@ CWR_StartForceDMATransmit(
 	LL_USART_Enable(USART1);
 }
 
+/**
+ * @brief	Функция принудительно передает данные по модулю USART1 с помощью канала DMA,
+ * 			если канал DMA неактивен
+ * @param[in]	*pMemSource: Адрес, откуда начнется передача
+ * @param[in]	cnt:	Количество байт, которые необходимо передать
+ * @return	None
+ */
 void
 CWR_StartDMATransmit(
 	uint32_t *pMemSource,
@@ -106,6 +126,12 @@ CWR_StartDMATransmit(
 	}
 }
 
+/**
+ * @brief	Функция получает данные по модулю USART1 с помощью канала DMA
+ * @param[in]	*pMemSource:	Адрес, откуда начнется передача
+ * @param[in]	cnt: 	Количество байт, которые необходимо передать
+ * @return	None
+ */
 void
 CWR_StartForceDMAReceive(
 	uint32_t *pMemSource,
@@ -141,6 +167,13 @@ CWR_StartForceDMAReceive(
 	LL_USART_Enable(USART1);
 }
 
+/**
+ * @brief	Функция принудительно получает данные по модулю USART1 с помощью канала DMA,
+ * 			если канал DMA неактивен
+ * @param[in]	*pMemSource: Адрес, откуда начнется передача
+ * @param[in]	cnt:	Количество байт, которые необходимо передать
+ * @return	None
+ */
 void
 CWR_StartDMAReceive(
 	uint32_t *pMemSource,
@@ -154,6 +187,11 @@ CWR_StartDMAReceive(
 	}
 }
 
+/**
+ * @brief	Функция обработки прерывания USART1
+ * @param	None
+ * @return	None
+ */
 void USART1_IRQHandler(
 	void)
 {
@@ -162,7 +200,7 @@ void USART1_IRQHandler(
 	{
 		uint8_t trash =
 			LL_USART_ReceiveData8(
-					USART1);
+				USART1);
 		(void) trash;
 	}
 
@@ -181,6 +219,11 @@ void USART1_IRQHandler(
 	}
 }
 
+/**
+ * @brief	Функция обработки прерывания канала Channel4 DMA на передачу данных
+ * @param	None
+ * @return	None
+ */
 void DMA1_Channel4_IRQHandler(
 	void)
 {
@@ -210,6 +253,11 @@ void DMA1_Channel4_IRQHandler(
 	}
 }
 
+/**
+ * @brief	Функция обработки прерывания канала Channel5 DMA на прием данных
+ * @param	None
+ * @return	None
+ */
 void DMA1_Channel5_IRQHandler(
 	void)
 {
