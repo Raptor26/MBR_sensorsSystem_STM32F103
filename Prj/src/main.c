@@ -1,7 +1,7 @@
-/** 
+/**
  * @file   	main.c
  * @author 	m.isaev
- * @version	
+ * @version
  * @date 	24 сент. 2018 г.
  * @brief
  */
@@ -13,6 +13,8 @@
 
 
 /*#### |Begin| --> Секция - "Глобальные переменные" ##########################*/
+const uint32_t progTactLength = 10000u;
+char testMessage_a[] = "Hello World\n";
 /*#### |End  | <-- Секция - "Глобальные переменные" ##########################*/
 
 
@@ -41,10 +43,38 @@ int main(
 	UFD_Init_All_USART2_TxRx_DMA1_Channel7_IO_Ports(
 		9600u);
 
-	/*=== |End  | <-- Секция - "Конфигурирование периферии микроконтроллера" =*/
-	while(1)
-	{
 
+	CWR_Init_USART1_TxWithDMA_RxWithDMA(9600UL);
+
+
+
+	HPT_InitTIMForProgTact(
+		progTactLength);
+
+
+	/* Включаем таймер 3 как 16-битный*/
+	VT_Init_Tim3_As_16bit();
+
+	/*=== |End  | <-- Секция - "Конфигурирование периферии микроконтроллера" =*/
+	while (1)
+	{
+		if (HPT_status_s.newProgTactEn_flag != 0)
+		{
+			HPT_status_s.newProgTactEn_flag = 0;
+			BLEDS_Green_ON();
+
+			BLEDS_Green_OFF();
+
+			UFD_StartDMATransmit(
+					(uint32_t*) testMessage_a,
+					strlen(testMessage_a));
+
+//			LL_USART_TransmitData8(USART2, 'H');
+			LL_USART_TransmitData8(USART1, 'Y');
+
+			HPT_status_s.restProgTactCnt = progTactLength - TIM4->CNT;
+			HPT_status_s.minRestTactCnt = HPT_Min(HPT_status_s.restProgTactCnt, TIM4->CNT);
+		}
 	}
 	return 1;
 }
